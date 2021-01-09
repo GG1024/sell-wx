@@ -1,11 +1,15 @@
 package com.lucky.sell.domain.form;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotEmpty;
 
 
 @Data
+@Accessors(chain = true)
+@ApiModel(value = "创建订单", description = "OrderForm对象")
 public class OrderForm {
 
     /**

@@ -15,53 +15,13 @@ import java.util.List;
  */
 public interface IProductCategoryService extends IService<ProductCategory> {
 
-    /**
-     * 查询类目表模块
-     *
-     * @param id 类目表模块ID
-     * @return 类目表模块
-     */
-    ProductCategory selectById(String id);
+    ProductCategory findOne(String categoryId);
 
-    /**
-     * 查询类目表模块列表
-     *
-     * @param productCategory 类目表模块
-     * @return 类目表模块集合
-     */
-    List<ProductCategory> selectList(ProductCategory productCategory);
+    List<ProductCategory> findAll();
 
-    /**
-     * 新增类目表模块
-     *
-     * @param productCategory 类目表模块
-     * @return 结果
-     */
-    int insert(ProductCategory productCategory);
+    List<ProductCategory> findByCategoryTypeIn(List<Integer> cateforyTyprList);
 
-    /**
-     * 修改类目表模块
-     *
-     * @param productCategory 类目表模块
-     * @return 结果
-     */
-    int update(ProductCategory productCategory);
-
-    /**
-     * 批量删除类目表模块
-     *
-     * @param ids 需要删除的类目表模块ID
-     * @return 结果
-     */
-    int deleteByIds(List<String> ids);
-
-    /**
-     * 删除类目表模块信息
-     *
-     * @param id 类目表模块ID
-     * @return 结果
-     */
-    int deleteById(String id);
+    ProductCategory add(ProductCategory productCategory);
 
 
 }

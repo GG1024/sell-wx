@@ -22,75 +22,28 @@ import java.util.List;
 @Slf4j
 public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMapper, ProductCategory> implements IProductCategoryService {
 
-
-    /**
-     * 查询类目表模块
-     *
-     * @param id 类目表模块ID
-     * @return 类目表模块
-     */
     @Override
-    public ProductCategory selectById(String id) {
-        return baseMapper.selectById(id);
+    public ProductCategory findOne(String categoryId) {
+        QueryWrapper<ProductCategory> where = new QueryWrapper<>();
+        where.lambda().eq(ProductCategory::getCategoryId,categoryId);
+        return baseMapper.selectById(where);
     }
 
-    /**
-     * 查询类目表模块列表
-     *
-     * @param productCategory 类目表模块
-     * @return 类目表模块
-     */
     @Override
-    public List<ProductCategory> selectList(ProductCategory productCategory) {
+    public List<ProductCategory> findAll() {
+        return baseMapper.selectList(new QueryWrapper<>());
+    }
+
+    @Override
+    public List<ProductCategory> findByCategoryTypeIn(List<Integer> cateforyTyprList) {
         QueryWrapper<ProductCategory> where = new QueryWrapper<>();
-        where.setEntity(productCategory);
+        where.lambda().in(ProductCategory::getCategoryType, cateforyTyprList);
         return baseMapper.selectList(where);
     }
 
-    /**
-     * 新增类目表模块
-     *
-     * @param productCategory 类目表模块
-     * @return 结果
-     */
     @Override
-    public int insert(ProductCategory productCategory) {
-        return baseMapper.insert(productCategory);
+    public ProductCategory add(ProductCategory productCategory) {
+        return baseMapper.insert(productCategory) > 0 ? productCategory : null;
     }
-
-    /**
-     * 修改类目表模块
-     *
-     * @param productCategory 类目表模块
-     * @return 结果
-     */
-    @Override
-    public int update(ProductCategory productCategory) {
-        return baseMapper.updateById(productCategory);
-    }
-
-    /**
-     * 批量删除类目表模块
-     *
-     * @param ids 需要删除的类目表模块ID
-     * @return 结果
-     */
-    @Override
-    public int deleteByIds(List<String> ids) {
-        return baseMapper.deleteBatchIds(ids);
-    }
-
-    /**
-     * 删除类目表模块信息
-     *
-     * @param id 类目表模块ID
-     * @return 结果
-     */
-    @Override
-    public int deleteById(String id) {
-        return baseMapper.deleteById(id);
-    }
-
-
 }
 

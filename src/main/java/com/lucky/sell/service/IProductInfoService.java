@@ -1,7 +1,9 @@
 package com.lucky.sell.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lucky.sell.domain.ProductInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lucky.sell.domain.dto.CartDTO;
 
 import java.util.List;
 
@@ -16,53 +18,29 @@ import java.util.List;
 public interface IProductInfoService extends IService<ProductInfo> {
 
     /**
-     * 查询商品表模块
-     *
-     * @param id 商品表模块ID
-     * @return 商品表模块
+     * 商品上架
+     * @param productId
+     * @return
      */
-    ProductInfo selectById(String id);
+    int onSale(String productId);
 
     /**
-     * 查询商品表模块列表
-     *
-     * @param productInfo 商品表模块
-     * @return 商品表模块集合
+     * 商品下架
+     * @param productId
+     * @return
      */
-    List<ProductInfo> selectList(ProductInfo productInfo);
+    int offSale(String productId);
 
-    /**
-     * 新增商品表模块
-     *
-     * @param productInfo 商品表模块
-     * @return 结果
-     */
-    int insert(ProductInfo productInfo);
+    ProductInfo findOne(String productId);
 
-    /**
-     * 修改商品表模块
-     *
-     * @param productInfo 商品表模块
-     * @return 结果
-     */
-    int update(ProductInfo productInfo);
+    /** 查询所有上架的商品**/
+    List<ProductInfo> findUpAll();
 
-    /**
-     * 批量删除商品表模块
-     *
-     * @param ids 需要删除的商品表模块ID
-     * @return 结果
-     */
-    int deleteByIds(List<String> ids);
-
-    /**
-     * 删除商品表模块信息
-     *
-     * @param id 商品表模块ID
-     * @return 结果
-     */
-    int deleteById(String id);
-
+    Page<ProductInfo> findAll(Integer page, Integer size);
+    /** 加库存**/
+    void increaseStock(List<CartDTO> cartDTOList);
+    /** 减库存**/
+    void decreaseStock(List<CartDTO> cartDTOList);
 
 }
 

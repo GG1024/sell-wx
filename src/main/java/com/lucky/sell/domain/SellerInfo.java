@@ -31,7 +31,7 @@ public class SellerInfo {
     private String password;
 
     @ApiModelProperty(value = "openID")
-    private String productDesc;
+    private String openid;
 
 
 }

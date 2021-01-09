@@ -1,5 +1,8 @@
 package com.lucky.sell.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lucky.sell.enums.ProductStatusEnum;
+import com.lucky.sell.utils.EnumUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -44,5 +47,32 @@ public class ProductInfo {
     @ApiModelProperty(value = "图片链接")
     private String productIcon;
 
+    /** 状态, 0正常1下架. */
+    private Integer productStatus = ProductStatusEnum.UP.getCode();
+
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum() {
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
+
+    /**
+     * 图片链接加host拼接成完整 url
+     * @param host
+     * @return
+     */
+    public ProductInfo addImageHost(String host) {
+        if (productIcon.startsWith("//") || productIcon.startsWith("http")) {
+            return this;
+        }
+
+        if (!host.startsWith("http")) {
+            host = "//" + host;
+        }
+        if (!host.endsWith("/")) {
+            host = host + "/";
+        }
+        productIcon = host + productIcon;
+        return this;
+    }
 
 }

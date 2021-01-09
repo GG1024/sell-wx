@@ -1,7 +1,9 @@
 package com.lucky.sell.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lucky.sell.domain.OrderMaster;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lucky.sell.domain.dto.OrderDTO;
 
 import java.util.List;
 
@@ -15,54 +17,48 @@ import java.util.List;
  */
 public interface IOrderMasterService extends IService<OrderMaster> {
 
-    /**
-     * 查询订单主表模块
-     *
-     * @param id 订单主表模块ID
-     * @return 订单主表模块
-     */
-    OrderMaster selectById(String id);
+
 
     /**
-     * 查询订单主表模块列表
+     * 查询订单详情
      *
-     * @param orderMaster 订单主表模块
-     * @return 订单主表模块集合
+     * @param orderId
+     * @return
      */
-    List<OrderMaster> selectList(OrderMaster orderMaster);
+    OrderDTO findOne(String orderId);
+
+    Page<OrderDTO> findList(Integer page, Integer size);
+
+    Page<OrderDTO> findList(String buyerOpenid, Integer page, Integer size);
 
     /**
-     * 新增订单主表模块
+     * 取消订单
      *
-     * @param orderMaster 订单主表模块
-     * @return 结果
+     * @param orderDTO
+     * @return
      */
-    int insert(OrderMaster orderMaster);
+    OrderDTO cancel(OrderDTO orderDTO);
 
     /**
-     * 修改订单主表模块
+     * 完结订单
      *
-     * @param orderMaster 订单主表模块
-     * @return 结果
+     * @param orderDTO
+     * @return
      */
-    int update(OrderMaster orderMaster);
+    OrderDTO finish(OrderDTO orderDTO);
 
     /**
-     * 批量删除订单主表模块
-     *
-     * @param ids 需要删除的订单主表模块ID
-     * @return 结果
+     * 修改订单的支付状态
+     * @param orderDTO
+     * @return
      */
-    int deleteByIds(List<String> ids);
+    OrderDTO paid(OrderDTO orderDTO);
 
     /**
-     * 删除订单主表模块信息
-     *
-     * @param id 订单主表模块ID
-     * @return 结果
+     * 创建订单
+     * @param orderDTO
+     * @return
      */
-    int deleteById(String id);
-
-
+    OrderDTO create(OrderDTO orderDTO);
 }
 
